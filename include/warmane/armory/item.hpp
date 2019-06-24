@@ -40,7 +40,7 @@ namespace warmane::armory
 		if (obj.is_null() || !obj.is_string())
 			return {};
 
-		return std::string{obj};
+		return obj.get<std::string>();
 	}
 
 	inline unsigned int item::id() const
@@ -51,7 +51,7 @@ namespace warmane::armory
 			return {};
 
 		return static_cast<unsigned int>(
-			std::stoi(std::string{obj})
+			std::stoi(obj.get<std::string>())
 		);
 	}
 
@@ -63,7 +63,7 @@ namespace warmane::armory
 			return {};
 
 		return static_cast<unsigned int>(
-			std::stoi(std::string{obj})
+			std::stoi(obj.get<std::string>())
 		);
 	}
 }

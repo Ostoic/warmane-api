@@ -86,6 +86,6 @@ namespace warmane::armory
 
 	guild load_guild(api::connection& connection, const character& character)
 	{
-		return load_guild(connection, character.guild(), warmane::realm{character.realm()});
+		return load_guild(connection, character.guild(), warmane::realm{character.realm().c_str()});
 	}
 }

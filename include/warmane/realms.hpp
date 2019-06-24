@@ -7,17 +7,17 @@ namespace warmane
 	class realm
 	{
 	public:
-		constexpr realm(const std::string_view name)
+		constexpr realm(const char* name)
 			: name_{name}
 		{}
 
-		constexpr std::string_view name() const
+		constexpr const char* name() const
 		{
 			return name_;
 		}
 
 	private:
-		const std::string_view name_;
+		const char* name_;
 	};
 
 	namespace realms

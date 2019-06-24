@@ -4,22 +4,22 @@
 
 namespace warmane::armory
 {
-	constexpr std::string_view hostname = "armory.warmane.com";
+	constexpr const char* hostname = "armory.warmane.com";
 
 	class service
 	{
 	public:
-		constexpr service(const std::string_view name)
+		constexpr service(const char* name)
 			: name_{name}
 		{}
 
-		constexpr std::string_view name() const
+		constexpr const char* name() const
 		{
 			return name_;
 		}
 
 	private:
-		const std::string_view name_;
+		const char* name_;
 	};
 
 	namespace services

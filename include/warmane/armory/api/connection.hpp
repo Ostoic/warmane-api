@@ -30,7 +30,7 @@ namespace warmane::armory::api
 	public:
 		struct options;
 
-		static constexpr std::string_view host = armory::hostname;
+		static constexpr const char* host = armory::hostname;
 
 	public:
 		connection();
