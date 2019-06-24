@@ -1,23 +1,23 @@
 #pragma once
 
-#include <string>
+#include <string_view>
 
 namespace warmane
 {
 	class realm
 	{
 	public:
-		constexpr realm(const char* name)
+		constexpr realm(const std::string_view name)
 			: name_{name}
 		{}
 
-		constexpr const char* name() const
+		constexpr std::string_view name() const
 		{
 			return name_;
 		}
 
 	private:
-		const char* name_;
+		const std::string_view name_;
 	};
 
 	namespace realms

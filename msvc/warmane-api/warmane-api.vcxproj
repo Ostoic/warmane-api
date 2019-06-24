@@ -76,6 +76,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\dinne\Documents\GitHub\json\single_include;C:\Users\dinne\Documents\Library\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\dinne\Documents\Library\lib\boost;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -83,6 +85,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\dinne\Documents\GitHub\json\single_include;C:\Users\dinne\Documents\Library\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\dinne\Documents\Library\lib\boost;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -107,8 +111,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS; _DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,8 +150,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS; NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +164,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="warmane-api.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\warmane\armory\api.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\api\connection.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\api\error.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\api\json.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\api\target.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\character.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\guild.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\item.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\json_parseable.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\profession.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\services.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\talent.hpp" />
+    <ClInclude Include="..\..\include\warmane\realms.hpp" />
+    <ClInclude Include="targetver.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

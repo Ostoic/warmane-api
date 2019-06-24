@@ -6,4 +6,11 @@
 *.ipch
 *.idb
 
+*/.vs/*
 .vs/*
+*.iobj
+*.ipdb
+*.exe
+*.ilk
+*.user
+*.user

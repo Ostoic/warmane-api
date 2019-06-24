@@ -13,10 +13,66 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\warmane">
+      <UniqueIdentifier>{1918b06c-544e-4ab0-87c7-352fd003f55b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\armory">
+      <UniqueIdentifier>{f5122d60-23f7-42e8-9f41-2e625ad281b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\armory\api">
+      <UniqueIdentifier>{decb447a-5190-4181-a5b7-a344fda76625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\other">
+      <UniqueIdentifier>{7f3a8215-ef70-4e4c-a03b-685069488895}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="warmane-api.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\warmane\armory\api.hpp">
+      <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api\connection.hpp">
+      <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api\error.hpp">
+      <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\character.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\realms.hpp">
+      <Filter>Header Files\warmane</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api\target.hpp">
+      <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\services.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.hpp">
+      <Filter>Header Files\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\item.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\guild.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api\json.hpp">
+      <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\profession.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\talent.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\json_parseable.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
