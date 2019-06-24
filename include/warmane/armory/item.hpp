@@ -3,13 +3,13 @@
 #include <string>
 
 #include "api/error.hpp"
-#include "json_parseable.hpp"
+#include "api/json.hpp"
 
 namespace warmane::armory
 {
-	class item : public json_parseable
+	class item : public api::json_parseable
 	{
-		using base = json_parseable;
+		using base = api::json_parseable;
 
 	public:
 		item() = default;

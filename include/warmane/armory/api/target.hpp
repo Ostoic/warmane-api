@@ -23,7 +23,7 @@ namespace warmane::armory::api
 		armory::service service() const;
 		warmane::realm realm() const;
 
-		std::string encode_url() const;
+		std::string path() const;
 
 	private:
 		std::string name_;
@@ -52,9 +52,27 @@ namespace warmane::armory::api
 		return realm_;
 	}
 
-	inline std::string target::encode_url() const
+	inline std::string target::path() const
 	{
 		return fmt::format("/api/{}/{}/{}/summary", service_.name(), name_, realm_.name());
+	}
+
+	inline std::string encode_url(const std::string& url)
+	{
+		std::string encoded;
+
+		for (const auto& c : url)
+		{
+			if (std::isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~')
+			{
+				encoded += c;
+				continue;
+			}
+
+			encoded += fmt::format("%{:x}", std::toupper(c));
+		}
+
+		return encoded;
 	}
 }
 

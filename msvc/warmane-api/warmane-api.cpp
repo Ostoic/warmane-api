@@ -7,22 +7,27 @@
 
 #include <iostream>
 #include <fstream>
+#include <thread>
+
+namespace http = boost::beast::http;
+namespace asio = boost::asio;
+namespace armory = warmane::armory;
+
+void test_character(armory::api::connection& api, const std::string& name)
+{
+}
 
 int main(int argc, char* argv[])
 {
-	namespace http = boost::beast::http;
-	namespace asio = boost::asio;
-	namespace armory = warmane::armory;
 
 	try
 	{
 		auto api = armory::api::connect();
-		const auto character = armory::load_character(api, "Adidi");
-		//const auto guild = armory::load_guild(api, character);
-		//armory::api::json obj;
-		//std::ifstream{"act.json"} >> obj;
+		//const auto character = armory::load_character(api, "Act");
+		armory::api::json obj;
+		std::ifstream{"act.json"} >> obj;
 
-		//const armory::character character{std::move(obj)};
+		const armory::character character{std::move(obj)};
 
 		std::cout << "name: " << character.name() << '\n';
 		std::cout << "class: " << character.player_class() << '\n';
@@ -32,7 +37,7 @@ int main(int argc, char* argv[])
 		std::cout << "level: " << character.level() << '\n';
 		std::cout << "faction: " << character.faction() << '\n';
 		std::cout << "honorablekills: " << character.honorable_kills() << '\n';
-		std::cout << "guild: " << character.guild() << '\n';
+		std::cout << "guild1: " << character.guild() << '\n';
 		std::cout << "achievementpoints: " << character.achievement_points() << '\n';
 
 		const auto equipment = character.equipment();
@@ -43,6 +48,22 @@ int main(int argc, char* argv[])
 
 		for (const auto& profession : professions)
 			std::cout << "profession: " << profession.name() << '\n';
+
+		std::cout << "\n";
+		//std::this_thread::sleep_for(std::chrono::seconds(5));
+
+		std::ifstream{"carpe.json"} >> obj;
+		const armory::guild guild{std::move(obj)};
+
+		std::cout << "guild2: " << guild.name() << '\n';
+		std::cout << "realm: " << guild.realm() << '\n';
+
+		const auto roster = guild.roster();
+		for (const auto& character : roster)
+		{
+			if (character.online())
+				std::cout << character.name() << '\n';
+		}
 	}
 	catch (boost::system::system_error& e)
 	{
@@ -51,11 +72,15 @@ int main(int argc, char* argv[])
 		else
 			std::cout << "Error: " << e.what() << '\n';
 	}
-	catch (armory::api::too_many_requests& e)
+	catch (armory::api::api_error& e)
 	{
 		std::cout << e.what() << '\n';
 	}
-	catch (armory::api::connection_closed& e)
+	catch (armory::api::json_error& e)
+	{
+		std::cout << e.what() << '\n';
+	}
+	catch (armory::api::database_error& e)
 	{
 		std::cout << e.what() << '\n';
 	}

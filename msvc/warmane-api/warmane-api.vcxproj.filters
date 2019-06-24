@@ -38,9 +38,6 @@
     <ClInclude Include="..\..\include\warmane\armory\api\connection.hpp">
       <Filter>Header Files\warmane\armory\api</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\warmane\armory\api\error.hpp">
-      <Filter>Header Files\warmane\armory\api</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\warmane\armory\character.hpp">
       <Filter>Header Files\warmane\armory</Filter>
     </ClInclude>
@@ -71,8 +68,11 @@
     <ClInclude Include="..\..\include\warmane\armory\talent.hpp">
       <Filter>Header Files\warmane\armory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api\error.hpp">
+      <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\warmane\armory\json_parseable.hpp">
-      <Filter>Header Files\warmane\armory</Filter>
+      <Filter>Header Files\warmane\armory\api</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,24 +5,25 @@
 #include "api/connection.hpp"
 #include "api/target.hpp"
 #include "api/error.hpp"
+#include "api/json.hpp"
 
-#include "json_parseable.hpp"
 #include "item.hpp"
 #include "talent.hpp"
 #include "profession.hpp"
 
 namespace warmane::armory
 {
-	class character : public json_parseable
+	class character : public api::json_parseable
 	{
-		using base = json_parseable;
-	public:
-		enum class info_type { partial, summary };
+		using base = api::json_parseable;
 
 	public:
 		character() = default;
 
-		explicit character(api::json&& json, info_type type = info_type::summary);
+		explicit character(api::json&& json);
+
+		template <class Key, class Value>
+		void insert(const Key& key, const Value& value);
 
 		std::string name() const;
 		std::string realm() const;
@@ -46,22 +47,22 @@ namespace warmane::armory
 		std::vector<item> equipment() const;
 		std::vector<talent> talents() const;
 		std::vector<profession> professions() const;
-
-		bool is_partial() const;
-
-	private:
-		const info_type info_type_;
 	};
 
-	inline character::character(api::json&& obj, info_type t)
+	inline character::character(api::json&& obj)
 		: base(std::move(obj))
-		, info_type_{t}
 	{
 		this->expect_key("name");
 		this->expect_key("level");
 		this->expect_key("gender");
 		this->expect_key("race");
 		this->expect_key("class");
+	}
+
+	template <class Key, class Value>
+	inline void character::insert(const Key& key, const Value& value)
+	{
+		json_[key] = value;
 	}
 
 	inline std::string character::name() const
@@ -189,11 +190,6 @@ namespace warmane::armory
 		return obj.get<std::vector<profession>>();
 	}
 
-	inline bool character::is_partial() const
-	{
-		return info_type_ == info_type::partial;
-	}
-
 	inline character load_character(
 		api::connection& connection,
 		const std::string& character_name,
@@ -210,8 +206,15 @@ namespace warmane::armory
 		);
 
 		const auto error = json["error"];
-		if (!error.is_null() && error.get<std::string>() == "Too many requests.")
-			throw api::too_many_requests{"[armory::load_character] API responded with too many requests, try again later"};
+		if (!error.is_null())
+		{
+			const auto message = error.get<std::string>();
+			if (message == "Too many requests.")
+				throw api::too_many_requests{"[armory::load_character] API responded with too many requests, try again later"};
+
+			else if (message == "Character does not exist.")
+				throw api::no_such_character{"[armory::load_character] Character does not exist"};
+		}
 
 		return character{std::move(json)};
 	}

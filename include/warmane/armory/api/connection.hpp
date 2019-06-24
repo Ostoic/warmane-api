@@ -4,8 +4,6 @@
 #include <memory>
 #include <optional>
 
-#include <nlohmann/json.hpp>
-
 #pragma warning(push, 0)
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
@@ -116,7 +114,7 @@ namespace warmane::armory::api
 		auto request = http::request<http::empty_body>{};
 
 		request.method(http::verb::get);
-		request.target(target.encode_url());
+		request.target(target.path());
 		options::fill_request(request, options{});
 
 		http::write(socket_, request);
