@@ -52,7 +52,7 @@ namespace warmane::api
 	{
 		//http://armory.warmane.com/api/guild/The+Sanctuary/Frostwolf/summary
 
-		return fmt::format("{}/api/{}/{}/{}/summary", warmane::hostname(), service_.name(), name_, realm_);
+		return fmt::format("{}/api/{}/{}/{}/summary", warmane::hostname(), service_.name(), name_, realm_.name());
 	}
 }
 
