@@ -76,39 +76,27 @@ namespace warmane::armory::api
 		{}
 	};
 
-	class database_error : public std::runtime_error
-	{
-	public:
-		explicit database_error(const std::string& message)
-			: std::runtime_error(message.c_str())
-		{}
-
-		explicit database_error(const char* message)
-			: std::runtime_error(message)
-		{}
-	};
-
-	class no_such_character : public database_error
+	class no_such_character : public api_error
 	{
 	public:
 		explicit no_such_character(const std::string& message = "Character does not exist")
-			: database_error(message.c_str())
+			: api_error(message.c_str())
 		{}
 
 		explicit no_such_character(const char* message)
-			: database_error(message)
+			: api_error(message)
 		{}
 	};
 
-	class no_such_guild : public database_error
+	class no_such_guild : public api_error
 	{
 	public:
 		explicit no_such_guild(const std::string& message = "Guild does not exist")
-			: database_error(message.c_str())
+			: api_error(message.c_str())
 		{}
 
 		explicit no_such_guild(const char* message)
-			: database_error(message)
+			: api_error(message)
 		{}
 	};
 }
