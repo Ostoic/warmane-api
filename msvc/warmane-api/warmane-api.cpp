@@ -23,11 +23,12 @@ int main(int argc, char* argv[])
 	try
 	{
 		auto api = armory::api::connect();
-		//const auto character = armory::load_character(api, "Act");
-		armory::api::json obj;
-		std::ifstream{"act.json"} >> obj;
+		const auto character = armory::load_character(api, "Act");
+		
+		//armory::api::json obj;
+		//std::ifstream{"act.json"} >> obj;
 
-		const armory::character character{std::move(obj)};
+		//const armory::character character{std::move(obj)};
 
 		std::cout << "name: " << character.name() << '\n';
 		std::cout << "class: " << character.player_class() << '\n';
@@ -50,10 +51,11 @@ int main(int argc, char* argv[])
 			std::cout << "profession: " << profession.name() << '\n';
 
 		std::cout << "\n";
-		//std::this_thread::sleep_for(std::chrono::seconds(5));
 
-		std::ifstream{"carpe.json"} >> obj;
-		const armory::guild guild{std::move(obj)};
+		//std::ifstream{"carpe.json"} >> obj;
+		//const armory::guild guild{std::move(obj)};
+		
+		const auto guild = armory::load_guild(api, character);
 
 		std::cout << "guild2: " << guild.name() << '\n';
 		std::cout << "realm: " << guild.realm() << '\n';
