@@ -2,28 +2,25 @@
 
 #include <nlohmann/json.hpp>
 
-#include "api/connection.hpp"
-#include "api/target.hpp"
-#include "api/error.hpp"
-#include "api/json.hpp"
+#include "http/connection.hpp"
 
+#include "json.hpp"
 #include "item.hpp"
 #include "talent.hpp"
 #include "profession.hpp"
 
 namespace warmane::armory
 {
-	class character : public api::json_parseable
+	class character : public armory::json_parseable
 	{
-		using base = api::json_parseable;
+		using base = armory::json_parseable;
+	public:
+		class stats;
 
 	public:
 		character() = default;
 
-		explicit character(api::json&& json);
-
-		template <class Key, class Value>
-		void insert(const Key& key, const Value& value);
+		explicit character(armory::json&& json);
 
 		std::string name() const;
 		std::string realm() const;
@@ -49,7 +46,7 @@ namespace warmane::armory
 		std::vector<profession> professions() const;
 	};
 
-	inline character::character(api::json&& obj)
+	inline character::character(armory::json&& obj)
 		: base(std::move(obj))
 	{
 		this->expect_key("name");
@@ -57,12 +54,6 @@ namespace warmane::armory
 		this->expect_key("gender");
 		this->expect_key("race");
 		this->expect_key("class");
-	}
-
-	template <class Key, class Value>
-	inline void character::insert(const Key& key, const Value& value)
-	{
-		json_[key] = value;
 	}
 
 	inline std::string character::name() const
@@ -188,34 +179,5 @@ namespace warmane::armory
 			return {};
 
 		return obj.get<std::vector<profession>>();
-	}
-
-	inline character load_character(
-		api::connection& connection,
-		const std::string& character_name,
-		warmane::realm realm = realms::icecrown
-	)
-	{
-		if (!connection.connected())
-			throw api::connection_closed{"[armory::load_character] invalid API connection"};
-
-		auto json = api::json::parse(
-			connection.get(
-				api::target{character_name, services::character, realm}
-			).body()
-		);
-
-		const auto error = json["error"];
-		if (!error.is_null())
-		{
-			const auto message = error.get<std::string>();
-			if (message == "Too many requests.")
-				throw api::too_many_requests{"[armory::load_character] API responded with too many requests, try again later"};
-
-			else if (message == "Character does not exist.")
-				throw api::no_such_character{"[armory::load_character] Character does not exist"};
-		}
-
-		return character{std::move(json)};
 	}
 }

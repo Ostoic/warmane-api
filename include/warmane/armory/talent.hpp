@@ -2,25 +2,25 @@
 
 #include <string>
 
-#include "api/json.hpp"
+#include "json.hpp"
 
 namespace warmane::armory
 {
-	class talent : public api::json_parseable
+	class talent : public armory::json_parseable
 	{
-		using base = api::json_parseable;
+		using base = armory::json_parseable;
 
 	public:
 		talent() = default;
 
-		explicit talent(api::json&& json);
+		explicit talent(armory::json&& json);
 
 		std::string tree() const;
 
 		unsigned int points(unsigned int index) const;
 	};
 
-	inline talent::talent(api::json&& json)
+	inline talent::talent(armory::json&& json)
 		: base(std::move(json))
 	{}
 

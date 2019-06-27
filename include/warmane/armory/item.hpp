@@ -2,19 +2,18 @@
 
 #include <string>
 
-#include "api/error.hpp"
-#include "api/json.hpp"
+#include "json.hpp"
 
 namespace warmane::armory
 {
-	class item : public api::json_parseable
+	class item : public armory::json_parseable
 	{
-		using base = api::json_parseable;
+		using base = armory::json_parseable;
 
 	public:
 		item() = default;
 
-		explicit item(api::json&& json);
+		explicit item(armory::json&& json);
 
 		std::string name() const;
 
@@ -23,11 +22,11 @@ namespace warmane::armory
 		unsigned int transmog_id() const;
 	};
 
-	inline item::item(api::json&& json)
+	inline item::item(armory::json&& json)
 		: base(std::move(json))
 	{
 		if (!json_.is_object())
-			throw api::unmatched_json_type{"[armory::item] Expected object"};
+			throw unmatched_json_type{"[armory::item] Expected object"};
 
 		this->expect_key("name");
 		this->expect_key("item");

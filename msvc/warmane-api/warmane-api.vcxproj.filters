@@ -25,6 +25,27 @@
     <Filter Include="Header Files\other">
       <UniqueIdentifier>{7f3a8215-ef70-4e4c-a03b-685069488895}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\warmane\armory\http">
+      <UniqueIdentifier>{5482a0ca-591c-4e62-a829-c65f1e9100ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\armory\site">
+      <UniqueIdentifier>{404fa443-1388-4c1a-bfd0-6b0dad515a29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\armory\site\parser">
+      <UniqueIdentifier>{fd835bb6-ef08-4709-90ee-c3fc7bd2af72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\utility">
+      <UniqueIdentifier>{1f527a45-a20e-45aa-b639-007e33619acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\armory\site\parser\tokens">
+      <UniqueIdentifier>{39270fd8-cec1-46f0-a00d-da54854ccf86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\armory\site\parser\html">
+      <UniqueIdentifier>{b4cedd39-cf90-47f6-b610-d0adf82f5b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\warmane\armory\site\parser\patterns">
+      <UniqueIdentifier>{564f45fa-c9ca-4931-918b-d45df6cc3375}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="warmane-api.cpp">
@@ -32,20 +53,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\warmane\armory\api.hpp">
-      <Filter>Header Files\warmane\armory\api</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\warmane\armory\api\connection.hpp">
-      <Filter>Header Files\warmane\armory\api</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\warmane\armory\character.hpp">
-      <Filter>Header Files\warmane\armory</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\warmane\realms.hpp">
       <Filter>Header Files\warmane</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\warmane\armory\api\target.hpp">
-      <Filter>Header Files\warmane\armory\api</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\warmane\armory\services.hpp">
       <Filter>Header Files\warmane\armory</Filter>
@@ -56,12 +65,6 @@
     <ClInclude Include="..\..\include\warmane\armory\item.hpp">
       <Filter>Header Files\warmane\armory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\warmane\armory\guild.hpp">
-      <Filter>Header Files\warmane\armory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\warmane\armory\api\json.hpp">
-      <Filter>Header Files\warmane\armory\api</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\warmane\armory\profession.hpp">
       <Filter>Header Files\warmane\armory</Filter>
     </ClInclude>
@@ -71,8 +74,92 @@
     <ClInclude Include="..\..\include\warmane\armory\api\error.hpp">
       <Filter>Header Files\warmane\armory\api</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\warmane\armory\json_parseable.hpp">
+    <ClInclude Include="..\..\include\warmane\armory\http\target.hpp">
+      <Filter>Header Files\warmane\armory\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api\target.hpp">
       <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\http\connection.hpp">
+      <Filter>Header Files\warmane\armory\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\http.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\target.hpp">
+      <Filter>Header Files\warmane\armory\site</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\http\error.hpp">
+      <Filter>Header Files\warmane\armory\http</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\error.hpp">
+      <Filter>Header Files\warmane\armory\site</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\api\load.hpp">
+      <Filter>Header Files\warmane\armory\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\load.hpp">
+      <Filter>Header Files\warmane\armory\site</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\json.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\error.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\classes.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\html_parser.hpp">
+      <Filter>Header Files\warmane\armory\site\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\utility\array.hpp">
+      <Filter>Header Files\warmane\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\productions.hpp">
+      <Filter>Header Files\warmane\armory\site\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\error.hpp">
+      <Filter>Header Files\warmane\armory\site\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\guild.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\character.hpp">
+      <Filter>Header Files\warmane\armory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\tokens\content.hpp">
+      <Filter>Header Files\warmane\armory\site\parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\patterns\html.hpp">
+      <Filter>Header Files\warmane\armory\site\parser\patterns</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\html\tag.hpp">
+      <Filter>Header Files\warmane\armory\site\parser\html</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\html\attribute.hpp">
+      <Filter>Header Files\warmane\armory\site\parser\html</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\token.hpp">
+      <Filter>Header Files\warmane\armory\site\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\symbol.hpp">
+      <Filter>Header Files\warmane\armory\site\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\tokens\div.hpp">
+      <Filter>Header Files\warmane\armory\site\parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\tokens\span.hpp">
+      <Filter>Header Files\warmane\armory\site\parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\lex.hpp">
+      <Filter>Header Files\warmane\armory\site\parser</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

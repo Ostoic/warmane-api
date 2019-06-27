@@ -2,25 +2,25 @@
 
 #include <string>
 
-#include "api/json.hpp"
+#include "json.hpp"
 
 namespace warmane::armory
 {
-	class profession : public api::json_parseable
+	class profession : public armory::json_parseable
 	{
-		using base = api::json_parseable;
+		using base = armory::json_parseable;
 
 	public:
 		profession() = default;
 
-		explicit profession(api::json&& json);
+		explicit profession(armory::json&& json);
 
 		std::string name() const;
 
 		unsigned int level() const;
 	};
 
-	inline profession::profession(api::json&& json)
+	inline profession::profession(armory::json&& json)
 		: base(std::move(json))
 	{
 		this->expect_key("name");

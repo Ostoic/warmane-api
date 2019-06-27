@@ -1,71 +1,115 @@
 #include "targetver.hpp"
 
+#include "../../include/warmane/armory/http.hpp"
 #include "../../include/warmane/armory/api.hpp"
+#include "../../include/warmane/armory/site.hpp"
 #include "../../include/warmane/armory/character.hpp"
-#include "../../include/warmane/armory/guild.hpp"
-#include "../../include/warmane/armory/api/json.hpp"
+//#include "../../include/warmane/armory/site/parser/html_parser.hpp"
+#include "../../include/warmane/armory/site/parser/lex.hpp"
+//#include "../../include/warmane/armory/guild.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <thread>
 
-namespace http = boost::beast::http;
+#include <boost/range/algorithm/find_if.hpp>
+
+#include <fmt/format.h>
+
 namespace asio = boost::asio;
 namespace armory = warmane::armory;
 
-void test_character(armory::api::connection& api, const std::string& name)
+void test_api(armory::http::connection& connection, const std::string& name)
 {
+	//const auto character = armory::load_character(connection, name);
+
+	////armory::armory::json obj;
+	////std::ifstream{"act.json"} >> obj;
+
+	////const armory::character character{std::move(obj)};
+
+	//std::cout << "name: " << character.name() << '\n';
+	//std::cout << "class: " << character.player_class() << '\n';
+	//std::cout << "gender: " << character.gender() << '\n';
+	//std::cout << "realm: " << character.realm() << '\n';
+	//std::cout << "online: " << character.online() << '\n';
+	//std::cout << "level: " << character.level() << '\n';
+	//std::cout << "faction: " << character.faction() << '\n';
+	//std::cout << "honorablekills: " << character.honorable_kills() << '\n';
+	//std::cout << "guild1: " << character.guild() << '\n';
+	//std::cout << "achievementpoints: " << character.achievement_points() << '\n';
+
+	//const auto equipment = character.equipment();
+	//const auto professions = character.professions();
+
+	//for (const auto& item : equipment)
+	//	std::cout << "item: " << item.name() << '\n';
+
+	//for (const auto& profession : professions)
+	//	std::cout << "profession: " << profession.name() << '\n';
+
+	//std::cout << "\n";
+
+	////std::ifstream{"carpe.json"} >> obj;
+	////const armory::guild guild{std::move(obj)};
+
+	//const auto guild = armory::load_guild(connection, character);
+
+	//std::cout << "guild2: " << guild.name() << '\n';
+	//std::cout << "realm: " << guild.realm() << '\n';
+
+	//const auto roster = guild.roster();
+	//for (const auto& character : roster)
+	//{
+	//	if (character.online())
+	//		std::cout << character.name() << '\n';
+	//}
 }
 
 int main(int argc, char* argv[])
 {
+	namespace chrono = std::chrono;
+	namespace parser = armory::site::parser;
 
 	try
 	{
-		auto api = armory::api::connect();
-		const auto character = armory::load_character(api, "Act");
-		
-		//armory::api::json obj;
-		//std::ifstream{"act.json"} >> obj;
+		//auto connection = armory::connect();
 
-		//const armory::character character{std::move(obj)};
+		std::stringstream html_stream;
+		html_stream << std::ifstream{"profile.html"}.rdbuf();
 
-		std::cout << "name: " << character.name() << '\n';
-		std::cout << "class: " << character.player_class() << '\n';
-		std::cout << "gender: " << character.gender() << '\n';
-		std::cout << "realm: " << character.realm() << '\n';
-		std::cout << "online: " << character.online() << '\n';
-		std::cout << "level: " << character.level() << '\n';
-		std::cout << "faction: " << character.faction() << '\n';
-		std::cout << "honorablekills: " << character.honorable_kills() << '\n';
-		std::cout << "guild1: " << character.guild() << '\n';
-		std::cout << "achievementpoints: " << character.achievement_points() << '\n';
+		const std::string html = html_stream.str();
 
-		const auto equipment = character.equipment();
-		const auto professions = character.professions();
+		//const auto parser = parser::html_parser{
+		//	parser::patterns::talent1(),
+		//	parser::patterns::talent2(),
+		//};
 
-		for (const auto& item : equipment)
-			std::cout << "item: " << item.name() << '\n';
+		const auto start = chrono::steady_clock::now();
+		const auto tokens = parser::lex(html);
+		const auto stop = chrono::steady_clock::now();
 
-		for (const auto& profession : professions)
-			std::cout << "profession: " << profession.name() << '\n';
+		fmt::print("Took {} milliseconds to lex\n",
+			chrono::duration_cast<chrono::milliseconds>(stop - start).count()
+		);
 
-		std::cout << "\n";
+		//boost::find_if(tokens, [](const std::unique_ptr<parser::token>& token)
+		//{
+			//return token->
+		//});
 
-		//std::ifstream{"carpe.json"} >> obj;
-		//const armory::guild guild{std::move(obj)};
-		
-		const auto guild = armory::load_guild(api, character);
+		//const auto& it = boost::range::find_if(tokens, [](const auto& token)
+		//{
+		//	return token.symbol() == parser::symbol::div;
+		//});
 
-		std::cout << "guild2: " << guild.name() << '\n';
-		std::cout << "realm: " << guild.realm() << '\n';
+		//const auto character
+		//	= armory::api::load<armory::character>(connection, "Act");
 
-		const auto roster = guild.roster();
-		for (const auto& character : roster)
-		{
-			if (character.online())
-				std::cout << character.name() << '\n';
-		}
+		//const auto character2
+			//= armory::site::load<armory::character>(connection, "Act");
+
+		//std::cout << "hks: " << character.honorable_kills() << "\n\n";
 	}
 	catch (boost::system::system_error& e)
 	{
@@ -78,11 +122,7 @@ int main(int argc, char* argv[])
 	{
 		std::cout << e.what() << '\n';
 	}
-	catch (armory::api::json_error& e)
-	{
-		std::cout << e.what() << '\n';
-	}
-	catch (armory::api::database_error& e)
+	catch (armory::json_error& e)
 	{
 		std::cout << e.what() << '\n';
 	}

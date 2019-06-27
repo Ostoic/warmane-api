@@ -2,7 +2,7 @@
 
 #include "../http/target.hpp"
 
-namespace warmane::armory::api
+namespace warmane::armory::site
 {
 	class target : public http::target
 	{
@@ -12,7 +12,8 @@ namespace warmane::armory::api
 			const warmane::realm realm = realms::icecrown,
 			const armory::service service = services::character
 		)
-			: http::target{name, "/api", realm, service}
+			: http::target{name, "", realm, service}
 		{}
 	};
 }
+

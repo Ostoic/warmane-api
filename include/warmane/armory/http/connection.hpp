@@ -17,11 +17,11 @@
 
 #include <iostream>
 
-namespace warmane::armory::api
+namespace warmane::armory::http
 {
+	namespace system = boost::system;
 	namespace asio = boost::asio;
 	namespace beast = boost::beast;
-	namespace http = beast::http;
 	using tcp = asio::ip::tcp;
 
 	// Synchronous interface for use with warmane's api services
@@ -42,7 +42,7 @@ namespace warmane::armory::api
 
 		void connect();
 
-		http::response<http::string_body> get(const api::target& target);
+		beast::http::response<beast::http::string_body> get(const http::target& target);
 
 		void shutdown();
 
@@ -51,7 +51,7 @@ namespace warmane::armory::api
 		const tcp::socket& socket() const noexcept;
 
 	private:
-		beast::error_code noexcept_shutdown() noexcept;
+		system::error_code noexcept_shutdown() noexcept;
 
 	private:
 		std::shared_ptr<asio::io_context> io_;
@@ -63,7 +63,7 @@ namespace warmane::armory::api
 	{
 	public:
 		std::string_view hostname
-			= armory::hostname;
+			= connection::host;
 
 		std::string_view user_agent
 			= "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0";
@@ -72,7 +72,7 @@ namespace warmane::armory::api
 			= "keep-alive";
 
 		std::string_view accept
-			= "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+			= "text/html,application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 
 		std::string_view accept_language
 			= "en-US,en;q=0.5";
@@ -81,9 +81,8 @@ namespace warmane::armory::api
 			= "identity";
 
 	public:
-		//auto request = http::request<http::string_body>{};
 		template <class Body>
-		static void fill_request(http::request<Body>&, const options& options);
+		static void fill_request(beast::http::request<Body>&, const options& options);
 	};
 
 	inline connection::connection()
@@ -108,34 +107,28 @@ namespace warmane::armory::api
 		return socket_.is_open();
 	}
 
-	inline http::response<http::string_body>
-		connection::get(const api::target& target)
+	inline beast::http::response<beast::http::string_body>
+		connection::get(const http::target& target)
 	{
-		auto request = http::request<http::empty_body>{};
+		auto request = beast::http::request<beast::http::empty_body>{};
 
-		request.method(http::verb::get);
+		request.method(beast::http::verb::get);
 		request.target(target.path());
 		options::fill_request(request, options{});
 
-		http::write(socket_, request);
+		beast::http::write(socket_, request);
 
 		beast::flat_buffer buffer;
-		http::response<http::string_body> response;
+		beast::http::response<beast::http::string_body> response;
 
-		beast::error_code ec;
-		http::read(socket_, buffer, response, ec);
-
-		const auto content_type = response[http::field::content_type];
-		if (content_type == "application/json")
-			return response;
-
+		system::error_code ec;
+		beast::http::read(socket_, buffer, response, ec);
 		return response;
-		//throw std::runtime_error{"Unknown content type: " + content_type.to_string()};
 	}
 
 	inline void connection::connect()
 	{
-		const auto results = resolver_.resolve(armory::hostname, std::to_string(80));
+		const auto results = resolver_.resolve(connection::host, std::to_string(80));
 		const auto result = asio::connect(socket_, results.begin(), results.end());
 	}
 
@@ -150,9 +143,9 @@ namespace warmane::armory::api
 			throw boost::system::system_error{ec};
 	}
 
-	inline beast::error_code connection::noexcept_shutdown() noexcept
+	inline system::error_code connection::noexcept_shutdown() noexcept
 	{
-		boost::system::error_code ec;
+		system::error_code ec;
 		socket_.shutdown(tcp::socket::shutdown_both, ec);
 
 		return ec;
@@ -169,20 +162,25 @@ namespace warmane::armory::api
 	}
 
 	template <class Body>
-	void connection::options::fill_request(http::request<Body>& request, const connection::options& options)
+	void connection::options::fill_request(beast::http::request<Body>& request, const connection::options& options)
 	{
-		request.set(http::field::host, options.hostname);
-		request.set(http::field::user_agent, options.user_agent);
-		request.set(http::field::connection, options.connection);
-		request.set(http::field::accept, options.accept);
-		request.set(http::field::accept_language, options.accept_language);
-		request.set(http::field::accept_encoding, options.accept_encoding);
+		request.set(beast::http::field::host, options.hostname);
+		request.set(beast::http::field::user_agent, options.user_agent);
+		request.set(beast::http::field::connection, options.connection);
+		request.set(beast::http::field::accept, options.accept);
+		request.set(beast::http::field::accept_language, options.accept_language);
+		request.set(beast::http::field::accept_encoding, options.accept_encoding);
 	}
 
-	connection connect()
+	http::connection connect()
 	{
-		connection conn;
+		http::connection conn;
 		conn.connect();
 		return conn;
 	}
+}
+
+namespace warmane::armory
+{
+	using http::connect;
 }

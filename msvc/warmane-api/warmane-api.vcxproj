@@ -167,18 +167,40 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\warmane\armory\api.hpp" />
-    <ClInclude Include="..\..\include\warmane\armory\api\connection.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\api\error.hpp" />
-    <ClInclude Include="..\..\include\warmane\armory\api\json.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\api\load.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\api\target.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\character.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\classes.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\error.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\guild.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\http.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\http\connection.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\http\error.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\http\target.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\item.hpp" />
-    <ClInclude Include="..\..\include\warmane\armory\json_parseable.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\json.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\profession.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\services.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\error.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\load.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\error.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\html\attribute.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\html\tag.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\html_parser.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\lex.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\patterns\html.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\productions.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\symbol.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\token.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\tokens\content.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\tokens\div.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\parser\tokens\span.hpp" />
+    <ClInclude Include="..\..\include\warmane\armory\site\target.hpp" />
     <ClInclude Include="..\..\include\warmane\armory\talent.hpp" />
     <ClInclude Include="..\..\include\warmane\realms.hpp" />
+    <ClInclude Include="..\..\include\warmane\utility\array.hpp" />
     <ClInclude Include="targetver.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
